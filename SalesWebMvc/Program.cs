@@ -30,8 +30,9 @@ namespace SalesWebMvc
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
-                app.Services.CreateScope().ServiceProvider.GetService<SeedingService>().Seed();
+                
             }
+            app.Services.CreateScope().ServiceProvider.GetService<SeedingService>().Seed();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
