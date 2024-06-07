@@ -15,10 +15,12 @@ namespace SalesWebMvc
             builder.Services.AddDbContext<SalesWebMvcContext>(options =>                
                 options.UseMySQL(builder.Configuration.GetConnectionString("SalesWebMvcContext"), builder =>
                     builder.MigrationsAssembly("SalesWebMvc")));
+
+            builder.Services.AddScoped<SeedingService>();
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
-            var app = builder.Build();
+            var app = builder.Build();            
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -26,6 +28,7 @@ namespace SalesWebMvc
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
+                app.Services.CreateScope().ServiceProvider.GetService<SeedingService>().Seed();
             }
 
             app.UseHttpsRedirection();
@@ -39,7 +42,8 @@ namespace SalesWebMvc
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
-            
+           
+       
 
             app.Run();
         }
