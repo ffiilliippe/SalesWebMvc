@@ -4,6 +4,7 @@ using Microsoft.Extensions.Options;
 using SalesWebMvc.Data;
 using System.Configuration;
 using MySql.EntityFrameworkCore;
+using SalesWebMvc.Services;
 
 namespace SalesWebMvc
 {
@@ -17,6 +18,7 @@ namespace SalesWebMvc
                     builder.MigrationsAssembly("SalesWebMvc")));
 
             builder.Services.AddScoped<SeedingService>();
+            builder.Services.AddScoped<SellerService>();
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
